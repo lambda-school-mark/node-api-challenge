@@ -10,10 +10,13 @@ router.post("/", (req, res) => {
     .then((projects) => {
       res.status(200).json(projects);
     })
-    .catch((err) =>
+    .catch((error) =>
       res
         .send(500)
-        .json({ errorMessage: "unable to create project", error: err })
+        .json({
+          errorMessage: "unable to create project",
+          error: error.message,
+        })
     );
 });
 
@@ -43,9 +46,10 @@ router.put("/:id", (req, res) => {
   Projects.update(req.params.id, req.body)
     .then(res.status(200).json({ message: `updated project ${req.params.id}` }))
     .catch((error) => {
-      res
-        .status(500)
-        .json({ message: `unable to update project ${req.params.id}` });
+      res.status(500).json({
+        message: `unable to update project ${req.params.id}`,
+        error: error.message,
+      });
     });
 });
 
@@ -56,9 +60,10 @@ router.delete("/:id", (req, res) => {
       status(201).json({ message: `deleted projects: ${records}` });
     })
     .catch((error) => {
-      res
-        .status(500)
-        .json({ message: `unable to delete project ${req.params.id}` });
+      res.status(500).json({
+        message: `unable to delete project ${req.params.id}`,
+        error: error.message,
+      });
     });
 });
 
