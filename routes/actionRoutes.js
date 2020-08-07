@@ -26,4 +26,15 @@ router.get("/", (req, res) => {
     .catch();
 });
 
+//update
+router.put("/:id", (req, res) => {
+  Actions.update(req.params.id, req.body)
+    .then(res.status(200).json({ message: `updated action ${req.params.id}` }))
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: `unable to update action ${req.params.id}` });
+    });
+});
+
 module.exports = router;
