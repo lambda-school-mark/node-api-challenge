@@ -12,4 +12,16 @@ router.get("/", (req, res) => {
     .catch();
 });
 
+router.get("/:id", (req, res) => {
+  Projects.get(req.params.id)
+    .then((project) => {
+      res.status(201).json(project);
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: "cannot fetch project", error: error.message });
+    });
+});
+
 module.exports = router;
