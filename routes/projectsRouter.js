@@ -49,4 +49,17 @@ router.put("/:id", (req, res) => {
     });
 });
 
+//delete
+router.delete("/:id", (req, res) => {
+  Projects.remove(req.params.id)
+    .then((records) => {
+      status(201).json({ message: `deleted projects: ${records}` });
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: `unable to delete project ${req.params.id}` });
+    });
+});
+
 module.exports = router;
