@@ -38,4 +38,15 @@ router.get("/:id", (req, res) => {
     });
 });
 
+//update
+router.put("/:id", (req, res) => {
+  Projects.update(req.params.id, req.body)
+    .then(res.status(200).json({ message: `updated project ${req.params.id}` }))
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: `unable to update project ${req.params.id}` });
+    });
+});
+
 module.exports = router;
