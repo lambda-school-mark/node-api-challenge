@@ -4,6 +4,20 @@ const router = express.Router();
 
 const Projects = require("../data/helpers/projectModel");
 
+//create
+router.post("/", (req, res) => {
+  Projects.insert(req.body)
+    .then((projects) => {
+      res.status(200).json(projects);
+    })
+    .catch((err) =>
+      res
+        .send(500)
+        .json({ errorMessage: "unable to create project", error: err })
+    );
+});
+
+//read
 router.get("/", (req, res) => {
   Projects.get()
     .then((projects) => {
