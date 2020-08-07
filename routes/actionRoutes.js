@@ -31,9 +31,24 @@ router.put("/:id", (req, res) => {
   Actions.update(req.params.id, req.body)
     .then(res.status(200).json({ message: `updated action ${req.params.id}` }))
     .catch((error) => {
-      res
-        .status(500)
-        .json({ message: `unable to update action ${req.params.id}` });
+      res.status(500).json({
+        message: `unable to update action ${req.params.id}`,
+        error: error,
+      });
+    });
+});
+
+//delete
+router.delete("/:id", (req, res) => {
+  Actions.remove(req.params.id)
+    .then((records) => {
+      status(201).json({ message: `deleted action: ${records}` });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: `unable to delete action ${req.params.id}`,
+        error: error,
+      });
     });
 });
 
